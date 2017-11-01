@@ -96,4 +96,8 @@ Grip click | Depending on the situation: Ejaculate inside, outside, pull out, sw
 Trigger click | During the choice between swallow and spit: Spit
 Trigger click | Start or stop making the girl look at you (follow cam)
 
+### Obey Tool
 
+<img src="https://github.com/Eusth/PlayClubVR/raw/master/Manual/maestro_tool.png">
+
+The *obey tool* lets you undress the actress in game. It's very self explaining, but a more detailed description will follow.
