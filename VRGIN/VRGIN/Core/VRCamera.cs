@@ -256,7 +256,7 @@ namespace VRGIN.Core
                 // Apply to both the head camera and the VR camera
                 ApplyToCameras(targetCamera =>
                 {
-                    targetCamera.nearClipPlane = VR.Context.NearClipPlane;
+                    targetCamera.nearClipPlane = VR.Context.NearClipPlane/100;
                     targetCamera.farClipPlane = Mathf.Max(Blueprint.farClipPlane, MIN_FAR_CLIP_PLANE);
                     targetCamera.clearFlags = Blueprint.clearFlags == CameraClearFlags.Skybox ? CameraClearFlags.Skybox : CameraClearFlags.SolidColor;
                     targetCamera.renderingPath = Blueprint.renderingPath;
