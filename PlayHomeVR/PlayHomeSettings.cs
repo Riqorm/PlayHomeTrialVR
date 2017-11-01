@@ -32,5 +32,12 @@ namespace PlayHomeVR
         [XmlComment("Allows SSAO to be enabled in the graphics menu. Not recommended because its ressource hungry and looks somewhat strange in VR")]
         public bool AllowSSAO { get { return _AllowSSAO; } set { _AllowSSAO = value; TriggerPropertyChanged("AllowSSAO"); } }
         private bool _AllowSSAO = false;
+
+        /// <summary>
+        /// Gets or sets EnableTouching
+        /// </summary>
+        [XmlComment("Makes dynamic/soft areas like breasts, hair and clothes react to touching them with the controller")]
+        public bool EnableTouching { get { return _EnableTouching; } set { _EnableTouching = value; TriggerPropertyChanged("EnableTouching"); } }
+        private bool _EnableTouching = true;
     }
 }

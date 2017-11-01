@@ -40,7 +40,7 @@ namespace PlayHomeVR
             UILayer = "UI";
             UILayerMask = LayerMask.GetMask(UILayer);
             UnitToMeter = 1f;
-            NearClipPlane = 0.1f;
+            NearClipPlane = 0.001f;
             PreferredGUI = GUIType.uGUI;
         }
 

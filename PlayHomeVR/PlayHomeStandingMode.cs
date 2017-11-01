@@ -28,5 +28,46 @@ namespace PlayHomeVR
                 return base.Tools.Concat(new Type[] { typeof(PlayHomePlayTool), typeof(PlayHomeObeyTool) });
             }
         }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            DynamicColliderRegistry.Clear();
+        }
+
+        protected override void CreateControllers()
+        {
+            base.CreateControllers();
+
+            foreach (var controller in new Controller[] { Left, Right })
+            {
+                var boneCollider = CreateCollider(controller.transform, 0.06f);
+                boneCollider.m_Center.y = -0.03f;
+                boneCollider.m_Center.z = 0.01f;
+                DynamicColliderRegistry.RegisterCollider(boneCollider, (b) => !IsNotBust(b));
+
+                boneCollider = CreateCollider(controller.transform, 0.08f);
+                boneCollider.m_Center.y = -0.03f;
+                boneCollider.m_Center.z = 0.01f;
+                DynamicColliderRegistry.RegisterCollider(boneCollider, IsNotBust);
+            }
+        }
+
+        private DynamicBoneCollider CreateCollider(Transform parent, float radius)
+        {
+            var collider = UnityHelper.CreateGameObjectAsChild("Dynamic Collider", parent).gameObject.AddComponent<DynamicBoneCollider>();
+            collider.m_Radius = radius;
+            collider.m_Bound = DynamicBoneCollider.Bound.Outside;
+            collider.m_Direction = DynamicBoneCollider.Direction.X;
+            collider.m_Center.y = 0;
+            collider.m_Center.z = 0;
+            return collider;
+        }
+
+        private static bool IsNotBust(IDynamicBoneWrapper wrapper)
+        {
+            return !(wrapper.Bone is DynamicBone_Ver02 bonev2 && bonev2.Comment != null && bonev2.Comment.StartsWith("mune"));
+        }
     }
 }

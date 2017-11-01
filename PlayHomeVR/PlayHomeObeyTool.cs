@@ -216,7 +216,7 @@ namespace PlayHomeVR
                 float fDist = 0;
                 if (m_eGrabTarget == EBodyArea.BREASTS)
                 {
-                    fDist = m_handCanvas.transform.InverseTransformDirection(m_raycastTransform.position).y - m_handCanvas.transform.InverseTransformDirection(m_grabStartControllerPos).y;
+                    fDist = m_handCanvas.transform.parent.InverseTransformDirection(m_raycastTransform.position).y - m_handCanvas.transform.parent.InverseTransformDirection(m_grabStartControllerPos).y;
                     m_handCanvas.transform.position = m_grabStartHitPos + (m_handCanvas.transform.parent.up * Math.Max(fDist, 0));
 
                     // Are the breasts covered with clothes which "pull" on them while we grab?
@@ -229,14 +229,14 @@ namespace PlayHomeVR
                 }
                 else if (m_eGrabTarget == EBodyArea.THIGHS)
                 {
-                    fDist = m_handCanvas.transform.InverseTransformDirection(m_grabStartControllerPos).y - m_handCanvas.transform.InverseTransformDirection(m_raycastTransform.position).y;
+                    fDist = m_handCanvas.transform.parent.InverseTransformDirection(m_grabStartControllerPos).y - m_handCanvas.transform.parent.InverseTransformDirection(m_raycastTransform.position).y;
                     m_handCanvas.transform.position = m_grabStartHitPos - (m_handCanvas.transform.parent.up * Math.Max(fDist, 0));
                 }
                 else if (m_eGrabTarget == EBodyArea.CROTCH)
                 {
                     // Two Options: Right for panties, down for other things
-                    fDist = m_grabbedActor.IsAnythingButShovingPantiesForCrotch() ? m_handCanvas.transform.InverseTransformDirection(m_grabStartControllerPos).y - m_handCanvas.transform.InverseTransformDirection(m_raycastTransform.position).y : 0;
-                    float fDistAlt = m_grabbedActor.CanShoveAsidePanties() ? m_handCanvas.transform.InverseTransformDirection(m_grabStartControllerPos).x - m_handCanvas.transform.InverseTransformDirection(m_raycastTransform.position).x : 0;
+                    fDist = m_grabbedActor.IsAnythingButShovingPantiesForCrotch() ? m_handCanvas.transform.parent.InverseTransformDirection(m_grabStartControllerPos).y - m_handCanvas.transform.parent.InverseTransformDirection(m_raycastTransform.position).y : 0;
+                    float fDistAlt = m_grabbedActor.CanShoveAsidePanties() ? m_handCanvas.transform.parent.InverseTransformDirection(m_grabStartControllerPos).x - m_handCanvas.transform.parent.InverseTransformDirection(m_raycastTransform.position).x : 0;
 
                     if (fDistAlt > fDist)
                     {

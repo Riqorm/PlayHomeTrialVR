@@ -28,6 +28,7 @@ namespace PlayHomeVR
         {
             get
             {
+                // FIXME get eye position (should be pretty much the same though)
                 return Actor.HeadPosTrans;
             }
         }
@@ -46,6 +47,30 @@ namespace PlayHomeVR
             }
         }
 
+        public IEnumerable<DynamicBone> SoftBones
+        {
+            get
+            {
+                return Actor.GetComponentsInChildren<DynamicBone>();
+            }
+        }
+
+        public IEnumerable<DynamicBone_Ver01> SoftBones_V1
+        {
+            get
+            {
+                return Actor.GetComponentsInChildren<DynamicBone_Ver01>();
+            }
+        }
+
+        public IEnumerable<DynamicBone_Ver02> SoftBones_V2
+        {
+            get
+            {
+                return Actor.GetComponentsInChildren<DynamicBone_Ver02>();
+            }
+        }
+
         public bool IsImpersonated => !HasHead;
         public bool IsMale => Actor is Male;
         public bool IsFemale => Actor is Female;
@@ -54,7 +79,30 @@ namespace PlayHomeVR
         {
             base.Initialize(actor);
 
-            //Fixme Get Eyes
+            // Register bones
+            if (((PlayHomeSettings)VR.Settings).EnableTouching)
+            {
+                int dbg1 = 0, dbg2 = 0, dbg3 = 0;
+                foreach (var bone in SoftBones_V2)
+                {
+                    dbg1++;
+                    DynamicColliderRegistry.RegisterDynamicBone(bone);
+                }
+                foreach (var bone in SoftBones_V1)
+                {
+                    dbg2++;
+                    DynamicColliderRegistry.RegisterDynamicBone(bone);
+                }
+                foreach (var bone in SoftBones)
+                {
+                    dbg3++;
+                    DynamicColliderRegistry.RegisterDynamicBone(bone);
+                }
+
+                VRLog.Debug("Got " + DynamicColliderRegistry.Bones.Count(x => true) + " Dynamic Bones registered, found " +
+                   dbg1 + " V2 Bones, " + dbg2 + " V1 Bones, "
+                    + dbg3 + " V0 Bones");
+            }
         }
 
         public void OnUpdate()

@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigurableContext.cs" />
+    <Compile Include="DynamicColliderRegistry.cs" />
     <Compile Include="PlayHomeActor.cs" />
     <Compile Include="PlayHomeInterpreter.cs" />
     <Compile Include="PlayHomeObeyTool.cs" />
