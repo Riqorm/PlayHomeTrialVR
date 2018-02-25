@@ -20,6 +20,17 @@ namespace PlayHomeVR
 
         public H_Scene Scene { get; private set; }
 
+        public bool IsLickingScene
+        {
+            get
+            {
+                if (Scene != null && Scene.mainMembers != null && Scene.mainMembers.param != null)
+                    return Scene.mainMembers.param.mouth == H.H_MOUTH.LICK;
+                else
+                    return false;
+            }
+        }
+
         private List<PlayHomeActor> _Actors = new List<PlayHomeActor>();
         public override IEnumerable<IActor> Actors
         {
@@ -42,7 +53,12 @@ namespace PlayHomeVR
             {
                 _Actors.Clear();
             }
+        }
 
+        protected override void OnLateUpdate()
+        {
+            foreach (var actor in _Actors)
+                actor.OnLateUpdate();
         }
 
         protected override void OnLevel(int level)

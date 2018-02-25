@@ -110,10 +110,27 @@ namespace PlayHomeVR
             CheckLookAt();
         }
 
+        public void OnLateUpdate()
+        {
+            // PlayHome is resetting the visibility during loops, overwrite it again during the lateupdate
+            if (!HasHead)
+                SetHeadVisible(false);
+        }
+
         private void SetHeadVisible(bool bVisible)
         {
             Actor.head.ChangeShow(bVisible);
             Actor.hairs.ChangeShow(bVisible);
+            bool bShowTongue = bVisible || (IsMale && ((PlayHomeInterpreter)VR.Interpreter).IsLickingScene);
+            if (bShowTongue)
+            {
+                Actor.SetTongueType(Actor.TongueType);
+            }
+            else
+            {
+                Actor.head.SetShowTongue(false);
+                Actor.body.SetShowTongue(false);
+            }
         }
 
         public void SetLookAt(Transform target)
