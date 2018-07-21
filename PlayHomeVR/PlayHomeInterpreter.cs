@@ -119,5 +119,18 @@ namespace PlayHomeVR
                 && (effect.GetType().Name.Equals("ImageEffectConfigChanger")
                 || (effect.GetType().Name.Equals("SSAOPro") && ((PlayHomeSettings)VR.Context.Settings).AllowSSAO));
         }
+
+        protected override CameraJudgement JudgeCameraInternal(Camera camera)
+        {
+            // Never switch to coordinate camera, prevents jumping down below
+            // the map when customising character during H scene (#18)
+            if (camera.name == "Coordinate Camera")
+            {
+                return CameraJudgement.Ignore;
+            }
+
+            //
+            return base.JudgeCameraInternal(camera);
+        }
     }
 }
