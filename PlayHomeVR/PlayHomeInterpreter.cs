@@ -132,5 +132,17 @@ namespace PlayHomeVR
             //
             return base.JudgeCameraInternal(camera);
         }
+
+        public override bool IsIgnoredCanvas(Canvas canvas)
+        {
+            // Hide coordinate card canvases (#14)
+            if (LayerMask.LayerToName(canvas.gameObject.layer) == "CoordinateCapture" && (canvas.name == "Canvas Front" || canvas.name == "Canvas Back"))
+            {
+                return true;
+            }
+
+            //
+            return base.IsIgnoredCanvas(canvas);
+        }
     }
 }
